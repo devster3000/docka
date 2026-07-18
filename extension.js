@@ -65,7 +65,7 @@ const BottomDock = GObject.registerClass(
     }
 
     _initDash() {
-      const shellVersion = Config.PACKAGE_VERSION;
+      const majorVersion = Number(Config.PACKAGE_VERSION.split(".")[0]);
       const oldVersions = ["46", "47", "48", "49"];
       this._dash = Main.overview.dash;
 
@@ -110,17 +110,19 @@ const BottomDock = GObject.registerClass(
         Main.overview._overview._controls.get_children().includes(this._dash)
       ) {
         Main.overview._overview._controls.remove_child(this._dash);
-      if (oldVersions.some(v => shellVersion.startsWith(v))) {
-        Main.layoutManager.addTopChrome(this._dash, {
-          affectsInputRegion: true,
-          affectsStruts: false,
-          trackFullscreen: false,
-        });
-      } else {
-        Main.layoutManager.addTopChrome(this._dash, {
-          affectsStruts: false,
-          trackFullscreen: false,
-    });
+        
+        if (majorVersion < 50) {
+            Main.layoutManager.addTopChrome(this._dash, {
+                affectsInputRegion: true,
+                affectsStruts: false,
+                trackFullscreen: false,
+            });
+        } else {
+            Main.layoutManager.addTopChrome(this._dash, {
+                affectsStruts: false,
+                trackFullscreen: false,
+            });
+        }
 }
       }
     }
