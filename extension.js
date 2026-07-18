@@ -66,7 +66,6 @@ const BottomDock = GObject.registerClass(
 
     _initDash() {
       const majorVersion = Number(Config.PACKAGE_VERSION.split(".")[0]);
-      const oldVersions = ["46", "47", "48", "49"];
       this._dash = Main.overview.dash;
 
       this._dash._dashContainer.connectObject(
@@ -123,7 +122,6 @@ const BottomDock = GObject.registerClass(
                 trackFullscreen: false,
             });
         }
-}
       }
     }
 
